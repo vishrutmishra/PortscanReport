@@ -13,7 +13,7 @@ cd $OUTPUT
 nmap $OPTIONS $TARGETS -oA scan-$date > /dev/null
 xsltproc scan-$date.xml -o scan-$date.html
 if [ -e scan-prev.xml ]; then
-        ndiff --xml scan-prev.xml scan-$date.xml > diff-$date.xml
+        ndiff scan-prev.xml scan-$date.xml > diff-$date
 	echo "*** NDIFF RESULTS ***"
         cat diff-$date
         echo	
