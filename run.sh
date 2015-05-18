@@ -16,8 +16,7 @@ if [ -e scan-prev.xml ]; then
         ndiff --xml scan-prev.xml scan-$date.xml > diff-$date.xml
 	echo "*** NDIFF RESULTS ***"
         cat diff-$date
-        echo
-	
+        echo	
 fi
 echo "*** NMAP RESULTS ***"
 cat scan-$date.nmap
