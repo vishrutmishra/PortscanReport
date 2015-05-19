@@ -10,15 +10,10 @@ if [ ! -d $OUTPUT ]; then
 fi
 
 cd $OUTPUT
-nmap $OPTIONS $TARGETS -oA scan-$date > /dev/null
-xsltproc scan-$date.xml -o scan-$date.html
+nmap $OPTIONS $TARGETS -oX scan-$date.xml > /dev/null
+../nmap2csv scan-$date.xml >> scan-$date.csv
 if [ -e scan-prev.xml ]; then
         ndiff scan-prev.xml scan-$date.xml > diff-$date
-	echo "*** NDIFF RESULTS ***"
-        cat diff-$date
-        echo	
 fi
-echo "*** NMAP RESULTS ***"
-cat scan-$date.nmap
 ln -sf scan-$date.xml scan-prev.xml
-ln -sf scan-$date.html scan-prev.html
+ln -sf scan-$date.csv scan-prev.csv
