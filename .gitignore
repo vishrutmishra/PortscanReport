@@ -1,2 +1,4 @@
-scans/*
+*.csv
 *.swp
+*.lst
+output
