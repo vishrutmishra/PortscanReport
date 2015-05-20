@@ -89,9 +89,7 @@ function test {
   result="$result range:$range"
   result="$result bin:$bin"
   result="$result dec:$dec"
-  result="$result bin2:$bin2"
-  result="$result ipbin:$ipbin"
-  result="$result ip2:$ip2"
+  result="$result maxdec:$maxdec"
   echo $result
 }
 #test
