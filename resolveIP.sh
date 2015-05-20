@@ -36,7 +36,6 @@ dec=`bin2dec $bin`
 function dec2bin {
   echo "obase=2;$1" | bc
 }
-bin2=`dec2bin $dec`
 
 function bin2ipbin {
   local length=${#1}
@@ -47,15 +46,36 @@ function bin2ipbin {
   ip="$ip.${1:$[length-8]}"
   echo $ip
 }
-ipbin=`bin2ipbin $bin2`
 
 function ipbin2ip {
-for i in $(echo $1 | tr '.' ' '); do echo $((2#$i)) | bc; done
+  local ip=""
+  ip=`for i in $(echo $1 | tr '.' ' '); do echo $((2#$i)) | bc; done`
+  ip=`echo $ip | tr ' ' '.'`
+  echo $ip
 }
-ip2=`ipbin2ip $ipbin`
-ip2=`echo $ip2 | tr ' ' '.'`
 
-echo $ip2-$max_range
+function getMaxDec {
+  echo $[$1 + $2]
+}
+maxdec=`getMaxDec $dec $range`
+
+function getResult {
+  local result=""
+  local bin=""
+  local ipbin=""
+  local ip=""
+  while [ $dec -lt $maxdec ]
+  do
+    bin=`dec2bin $dec`
+    ipbin=`bin2ipbin $bin`
+    ip=`ipbin2ip $ipbin`
+    result="$result $ip-$max_range"
+    dec=$[dec+max_range]
+  done
+  echo "$result"
+}
+result=`getResult`
+echo $result | tr ' ' '\n'
 
 
 function test {
