@@ -137,7 +137,7 @@ wildcards are supported'''
 
     oParser = optparse.OptionParser(usage='usage: %prog [options] [@]file ...\n' + __description__ + moredesc, version='%prog ' + __version__)
     oParser.add_option('-o', '--output', type=str, default='', help='Output to file')
-    oParser.add_option('-s', '--separator', default=';', help='Separator character (default ;)')
+    oParser.add_option('-s', '--separator', default=',', help='Separator character (default ,)')
     (options, args) = oParser.parse_args()
 
     if len(args) == 0:

@@ -1,19 +1,42 @@
 #!/bin/bash
 
-TARGETS=$@
-OUTPUT="scans"
-OPTIONS="-v -T4 -F -sV"
 date=`date +%F`
+SCAN_OUTPUT="scans-"$date
+OUTPUT="final"
+OPTIONS="-v -T4 -F -sV"
+
+if [ ! -d $SCAN_OUTPUT ]; then
+	mkdir $SCAN_OUTPUT
+fi
+
+cd $SCAN_OUTPUT
+while read line
+do
+	echo $line
+	IP=${line%/*}
+	nmap $OPTIONS $line -oX scan-$date-$IP.xml
+	../nmap2csv scan-$date-$IP.xml > scan-$date-$IP.csv
+	if [ -e scan-prev-$IP.xml ]; then
+	    ndiff scan-prev-$IP.xml scan-$date-$IP.xml > diff-$date-$IP.xml
+	fi
+	ln -sf scan-$date-$IP.xml scan-prev-$IP.xml
+	ln -sf scan-$date-$IP.csv scan-prev-$IP.csv
+done < ../$1
+
+cd ..
+
+files=($SCAN_OUTPUT/scan-$date-*.csv)
 
 if [ ! -d $OUTPUT ]; then
 	mkdir $OUTPUT
 fi
 
-cd $OUTPUT
-nmap $OPTIONS $TARGETS -oX scan-$date.xml > /dev/null
-../nmap2csv scan-$date.xml >> scan-$date.csv
-if [ -e scan-prev.xml ]; then
-        ndiff scan-prev.xml scan-$date.xml > diff-$date
+cat ${files[0]} > $OUTPUT/scan-$date.csv
+
+for (( c=1; c<${#files[@]};c++ ))
+do
+	tail -n+2 ${files[$i]} >> $OUTPUT/scan-$date.csv
+done
+if [ -e $OUTPUT/scan-prev.csv ]; then
+	diff $OUTPUT/scan-prev.csv $OUTPUT/scan-$date.csv > $OUTPUT/diff-$date.csv
 fi
-ln -sf scan-$date.xml scan-prev.xml
-ln -sf scan-$date.csv scan-prev.csv
