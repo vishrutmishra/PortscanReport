@@ -1,5 +1,7 @@
 #!/bin/bash
-max_range=`cat config/max_range.cfg`
+. config/config.cfg
+
+max_range=$_max_range
 fullIP=$1
 
 function getIndex {
