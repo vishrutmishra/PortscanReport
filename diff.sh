@@ -10,6 +10,10 @@ OPTIONS=$_OPTIONS
 
 echo "$date $SCAN_OUTPUT $ROOT $OUTPUT $OPTIONS"
 
+if [ ! -d "output" ]; then
+  mkdir "output"
+fi
+
 if [ ! -d "$SCAN_OUTPUT" ]; then
   mkdir $SCAN_OUTPUT
 fi
