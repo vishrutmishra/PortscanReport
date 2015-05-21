@@ -28,7 +28,7 @@ do
   echo $line
   IP=${line%/*}
   nmap $OPTIONS $line -oX scan-$date-$IP.xml
-  $ROOT/nmap2csv scan-$date-$IP.xml > scan-$date-$IP.csv
+  $ROOT/nmapXML2CSV scan-$date-$IP.xml > scan-$date-$IP.csv
   if [ -e scan-prev-$IP.xml ]; then
     ndiff scan-prev-$IP.xml scan-$date-$IP.xml > diff-$date-$IP.xml
   fi
