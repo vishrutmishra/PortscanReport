@@ -19,12 +19,12 @@
   you can also mention `fast` for fast scan. (_same as mentioning `-T4` in nmap._)  
   `./getReport.sh ipList.lst fast`  
 
-_you can use any name instead of iplist.lst_
+_you can use any name instead of ipList.lst_
 
 ###Changing Config/config.cfg
-  - `_max_range` is the max value of range of IPs whose portscan is done simuntaneously. It is used in resolve.sh for giving ip list.
+  - `_max_range` is the max value of range of IPs whose portscan is done simuntaneously. It is used in resolveIP.sh for giving ip list.
   - `_date` gives the preset date. It is used as a part of name to store the report. _You can also add time if you want to scan more than once a day_.
-  - `_SCAN_OUTPUT` is name of folder in which port scan result on indivisual ports are stored.
+  - `_SCAN_OUTPUT` is name of folder in which port scan result on individual ports are stored.
   - `_ROOT` is used to give ROOT directory of the project. It calculates it by doing _pwd_.( as it is used in getReport.sh present in root directory )
   - `_OUTPUT` gives name of folder in which final result of scan ( concat of all port scan result ) are stored.
   - `_OPTIONS` are the options of nmap that are used. (_except -T4 that is decided based on whether fast is passed or not_)
@@ -55,8 +55,7 @@ _you can use any name instead of iplist.lst_
   127.0.7.129-128  
 
 
- - **ipList.lst** is parsed line by line an deach line is given as an input to nmap for range of ip  
-  you can create your own **ipList.lst** _(or any other name)_ as long as each line is a valid input of ip(s) for nmap command
+ - **ipList.lst** is parsed line by line and each line is given as an input to nmap. You can also create your own **ipList.lst** _(or any other name)_ as long as each line is a valid input of ip(s) for _nmap_ command
 
  - **resolveIP.sh** takes input in form *n.n.n.n/n* and gives output in _n.n.n.n-range_ in multiple lines breaking the whole range into smaller parts which can be stored in a file to be used as an input for _getReport.sh_. If input provided is of any other form than *n.n.n.n/n* it wont work
 
