@@ -8,8 +8,7 @@ ROOT=$_ROOT
 OUTPUT=$_OUTPUT
 OPTIONS=$_OPTIONS
 
-echo "$date $SCAN_OUTPUT $ROOT $OUTPUT $OPTIONS"
-
+#if o/p dir not present make it
 if [ ! -d "output" ]; then
   mkdir "output"
 fi
@@ -21,7 +20,9 @@ fi
 if [ "$2" = "fast" ]; then
   OPTIONS="$OPTIONS -T4"
 fi
-
+#read line by line the file that has the list of ips
+#run the nmap command for those ips
+#save the output in output dir
 cd $SCAN_OUTPUT
 while read line
 do
